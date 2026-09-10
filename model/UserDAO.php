@@ -1,5 +1,7 @@
 <?php
 
+require_once 'User.php';
+
 class UserDAO {
 
 	private PDO $con;
@@ -10,6 +12,28 @@ class UserDAO {
 		} catch(Exception $e) {
 			die('ERROR CONNEXION DB : '. $e->getMessage() );
 		}
-		echo 'TOUT EST OK !!';
+	}
+
+	public function getById(int $i) : User {
+		// requête SQL
+		$sql = 'SELECT * FROM users WHERE id = ?';
+		$stmt = $this->con->prepare($sql);
+		$stmt->execute([$i]);
+
+		// parcourir le résultat de la requête (un vieu tableau PHP tout pourri)
+		$tab = $stmt->fetch();
+		echo 'kik';
+		var_dump($tab);
+		// créer un bel objet BO User
+		if($tab) {
+			$user = new User($tab['id'], $tab['username'], $tab['password'], $tab['lastConnection']);
+		} else {
+			$user = new User();
+		}
+		
+echo 'lol';
+		// renvoyer le User
+		return $user;
+
 	}
 }
