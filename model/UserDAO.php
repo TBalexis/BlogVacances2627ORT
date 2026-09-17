@@ -22,8 +22,6 @@ class UserDAO {
 
 		// parcourir le résultat de la requête (un vieu tableau PHP tout pourri)
 		$tab = $stmt->fetch();
-		echo 'kik';
-		var_dump($tab);
 		// créer un bel objet BO User
 		if($tab) {
 			$user = new User($tab['id'], $tab['username'], $tab['password'], $tab['lastConnection']);
@@ -31,7 +29,6 @@ class UserDAO {
 			$user = new User();
 		}
 		
-echo 'lol';
 		// renvoyer le User
 		return $user;
 
