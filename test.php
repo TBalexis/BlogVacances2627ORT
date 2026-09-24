@@ -25,9 +25,6 @@ require_once 'model/ArticleDAO.php';
 $daoUser = new UserDAO;
 $u = $daoUser->getById(1);
 
-echo '<pre>';
-var_dump($u);
-echo '</pre>';die();
 $daoArticle = new ArticleDAO;
 $a = $daoArticle->getById(2);
 
@@ -51,7 +48,7 @@ echo $u;
 
 <section class="article" style="width: 700px; margin: auto; border: 1px solid black; border-radius: 7px; padding: 25px; background: white">
 	<h2><?= $a->getTitle() ?></h2>
-	<h3>Posté le <?= $a->getPostedAt() ?> par <?= "?????????????????" ?></h3>
+	<h3>Posté le <?= $a->getPostedAt() ?> par <?= $a->getUser()->getUsername() ?></h3>
 	<p><img width="200" style="float: left; margin: 0 15px 5px 0" src="<?= $a->getImage() ?>" alt="image"><?= $a->getBody() ?></p>
 </section>
 

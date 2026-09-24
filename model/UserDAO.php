@@ -46,4 +46,20 @@ class UserDAO {
 		return $user;
 
 	}
+
+		public function getAll() : array {
+
+
+		// faire la requete SQL pour récupérer tous les users (avec leur articles)
+
+		// parcourir le résultat de la requete (plusieurs lignes)
+		
+			// créer un DTO user 
+
+			// créer des DTO articles à associer au user
+
+			// mettre cet user dans un tableau
+
+		// renvoyer le tableau
+	}
 }

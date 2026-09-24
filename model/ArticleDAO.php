@@ -44,4 +44,18 @@ class ArticleDAO {
 
 		return $article;
 	}
+
+	public function getAll() : array {
+		// faire la requete SQL pour récupérer tous les articles (avec l'auteur)
+
+		// parcourir le résultat de la requete (plusieurs lignes)
+		
+			// créer un DTO article, le mettre a jour
+
+			// créer un DTO user pour l'auteur, et l'associer à l'article
+
+			// mettre cet article dans un tableau
+
+		// renvoyer le tableau
+	}
 }
