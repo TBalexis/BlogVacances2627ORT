@@ -16,7 +16,9 @@ class ArticleDAO {
 
 
 	public function getById(int $i): Article {
-		$sql = 'SELECT * FROM articles WHERE id = ?;';
+		$sql = 'SELECT * FROM articles a 
+		INNER JOIN users u ON a.idUser = u.id
+		WHERE a.id = ?;';
 		$stmt = $this->con->prepare($sql);
 		$stmt->execute([$i]);
 
@@ -29,6 +31,15 @@ class ArticleDAO {
 			$article->setBody($data['body']);
 			$article->setImage($data['image']);
 			$article->setPostedAt($data['postedAt']);
+
+			$u = new User;
+
+			$u->setId($data['id']);
+			$u->setUsername($data['username']);
+			$u->setPassword($data['password']);
+			$u->setLastConnection($data['lastConnection']);
+
+			$article->setUser($u);
 		}
 
 		return $article;

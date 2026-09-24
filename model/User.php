@@ -6,8 +6,10 @@ class User {
 	private int $id;
 	private string $username;
 	private string $password;
-	//private \DateTime $lastConnection;
 	private string $lastConnection;
+	//private \DateTime $lastConnection;
+
+	private array $articles;
 
 	// constructeur
 	public function __construct(int $i = 0, string $u = 'unknown', string $p = 'unknown', string $lc = '1970-01-01') {
@@ -16,6 +18,7 @@ class User {
 		$this->password = $p;
 		//$this->lastConnection = \DateTime::createFromFormat('Y-m-d h:i:s', $lc);
 		$this->lastConnection = $lc;
+		$this->articles = [];
 	}
 
 	// getters/setters
@@ -27,6 +30,10 @@ class User {
 	public function setPassword(string $p) : void { $this->password = $p; }
 	public function getlastConnection(): string { return $this->lastConnection; }
 	public function setlastConnection(string $lc) : void { $this->lastConnection = $lc; }
+	public function getArticles(): array { return $this->articles; }
+
+	public function addArticle(Article $a) : void { $this->articles[] = $a; }
+
 
 	// public function __get($attr)
 	// public function __set($attr, $value)

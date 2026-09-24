@@ -23,9 +23,14 @@ ini_set('display_startup_errors', 1);
 require_once 'model/UserDAO.php';
 require_once 'model/ArticleDAO.php';
 $daoUser = new UserDAO;
-$u = $daoUser->getById(4);
+$u = $daoUser->getById(1);
+
+echo '<pre>';
+var_dump($u);
+echo '</pre>';die();
 $daoArticle = new ArticleDAO;
 $a = $daoArticle->getById(2);
+
 
 
 /*

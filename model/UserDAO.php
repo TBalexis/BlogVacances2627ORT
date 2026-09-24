@@ -16,15 +16,28 @@ class UserDAO {
 
 	public function getById(int $i) : User {
 		// requête SQL
-		$sql = 'SELECT * FROM users WHERE id = ?';
+		$sql = 'SELECT * FROM users u
+		INNER JOIN articles a ON u.id = a.idUser WHERE u.id = ?';
 		$stmt = $this->con->prepare($sql);
 		$stmt->execute([$i]);
 
 		// parcourir le résultat de la requête (un vieu tableau PHP tout pourri)
-		$tab = $stmt->fetch();
+		$tab = $stmt->fetchAll();
+
 		// créer un bel objet BO User
-		if($tab) {
-			$user = new User($tab['id'], $tab['username'], $tab['password'], $tab['lastConnection']);
+		if(count($tab)) {
+			$user = new User($tab[0]['id'], $tab[0]['username'], $tab[0]['password'], $tab[0]['lastConnection']);
+			foreach($tab as $tabArticle) {
+				$a = new Article();
+				$a->setId($tabArticle['id']);
+				$a->setTitle($tabArticle['title']);
+				$a->setBody($tabArticle['body']);
+				$a->setImage($tabArticle['image']);
+				$a->setPostedAt($tabArticle['postedAt']);
+
+				$user->addArticle($a);
+			}
+
 		} else {
 			$user = new User();
 		}
