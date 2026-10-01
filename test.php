@@ -23,7 +23,6 @@ require_once 'model/UserDAO.php';
 require_once 'model/ArticleDAO.php';
 $daoUser = new UserDAO;
 $u = $daoUser->getById(2);
-$users = $daoUser->getAll();
 
 
 
@@ -31,8 +30,43 @@ $daoArticle = new ArticleDAO;
 $a = $daoArticle->getById(2);
 $articles = $daoArticle->getAll();
 
+
+// Traiter l'ajout d'un user
+if(isset($_POST['btnAjoutUser'])) {
+	if( !empty($_POST['username']) && 
+		!empty($_POST['password'])  && 
+		!empty($_POST['password_check'])) {
+		if($_POST['password'] == $_POST['password_check']) {
+			$u = new User;
+			$u->setUsername($_POST['username']);
+			$u->setPassword($_POST['password']);
+			$u->setLastConnection(date('Y-m-d h:i:s'));
+
+			$daoUser->create($u);
+			echo 'Utilisateur ajouté dans la base';
+
+		} else { echo 'Les mots de passe ne correspondent pas'; }
+	}
+}
+
+
+$users = $daoUser->getAll();
+
+
+
 echo "<h1>Bonjour ". $u->getUsername()." </h1>";
 ?>
+
+
+<form method="post" action="test.php">
+	<input type="text" name="username" placeholder="Nom d'utilisateur">
+	<input type="password" name="password" placeholder="Mot de passe">
+	<input type="password" name="password_check" placeholder="Retapez le mot de passe">
+	<button name="btnAjoutUser">Enregistrer</button>
+</form>
+
+
+
 <h2>Tous les utilisateurs </h2>
 <table style="background: white; margin: auto">
 <tr><th>Utilisateur</th><th>Dernière connexion</th></tr>

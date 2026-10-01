@@ -76,11 +76,16 @@ class UserDAO {
 		return $tab;
 	}
 
-	public function create(User $user) {
-		// Exrait les informations de l'utilisateur passé en paramètre
+	public function create(User $user) : int {
+		$sql = 'INSERT INTO users (username, password, lastConnection) VALUES
+		(?, ?, ?)';
+		$stmt = $this->con->prepare($sql);
+		$stmt->execute([
+			$user->getUsername(), 
+			$user->getPassword(), 
+			$user->getLastConnection()
+		]);
 
-		// Insère les infos extraites dans la BDD
-
-		// La fonction renvoie l'id de l'utilisateur nouvellement créé
+		return $this->con->lastInsertId();
 	}
 }
